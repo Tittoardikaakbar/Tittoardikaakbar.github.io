@@ -46,7 +46,7 @@
     }
 
     /* Biodata & Pengembang */
-    .biodata, .pengembang {
+    .biodata {
       max-width:900px;
       margin:40px auto;
       padding:20px;
@@ -58,13 +58,41 @@
       gap:20px;
       align-items:center;
     }
-    .biodata img, .pengembang img {
+    .biodata .photo {
+      position:relative;
       width:180px;
       height:180px;
+    }
+    .biodata .photo img {
+      width:100%;
+      height:100%;
       object-fit:cover;
       border-radius:50%;
       box-shadow:0 4px 12px rgba(0,0,0,.1);
+      cursor:pointer;
     }
+
+    /* Popup saat hover */
+    .popup {
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%) translateY(100%);
+      background:rgba(0,0,0,0.8);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:6px;
+      font-size:14px;
+      white-space:nowrap;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s, transform .3s;
+    }
+    .photo:hover .popup {
+      opacity:1;
+      transform:translateX(-50%) translateY(110%);
+    }
+
     .info {
       flex:1;
     }
@@ -84,6 +112,7 @@
       display:flex;
       gap:12px;
       align-items:center;
+      flex-wrap:wrap;
     }
     .sosial a {
       display:inline-flex;
@@ -118,9 +147,12 @@
   <div id="img4" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0100.jpg"></div>
   <div id="img5" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0101.jpg"></div>
 
-  <!-- Biodata -->
+  <!-- Biodata & Pengembang -->
   <section class="biodata">
-    <img src="WhatsApp Image.jpg" alt="Foto Biodata">
+    <div class="photo">
+      <img src="WhatsApp Image.jpg" alt="Foto Biodata">
+      <div class="popup">Halo, saya Titto Ardika Akbar 👋</div>
+    </div>
     <div class="info">
       <h2>Titto Ardika Akbar</h2>
       <p><strong>Jurusan:</strong> S1 Ilmu Komputer</p>
@@ -128,9 +160,6 @@
       <p><strong>Tahun Lulus:</strong> 2025</p>
       <p>Website ini dikembangkan oleh <strong>Titto Ardika Akbar</strong> sebagai dokumentasi wisuda dan sarana pembelajaran pengembangan web.</p>
 
-    </div>
-  </section>
-      
       <div class="sosial">
         <!-- WhatsApp -->
         <a href="https://wa.me/6282244248271" target="_blank" class="wa">
