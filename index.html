@@ -3,136 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gallery Wisuda - Titto & AYANK</title>
+  <title>Gallery Foto</title>
   <style>
-    :root{ --bg:#f6f6f8; --card:#fff; --accent:#6b3fb5; }
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto, "Helvetica Neue", Arial; background:var(--bg); margin:0; color:#222}
-    header{background:linear-gradient(90deg,var(--accent),#8a5fd6); color:#fff; padding:28px 20px; text-align:center}
-    header h1{margin:0;font-size:clamp(20px,3vw,32px)}
-    header p{margin:6px 0 0; opacity:.95}
-    .container{max-width:1100px;margin:28px auto;padding:0 18px}
-
-    .hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
-    .hero .text{flex:1 1 320px;background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(20,20,40,.06)}
-    .hero .text h2{margin:0 0 8px}
-    .hero .text p{margin:0;color:#444}
-
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 8px 22px rgba(20,20,40,.06);display:flex;flex-direction:column}
-    .card img{width:100%;height:360px;object-fit:cover;display:block;cursor:pointer;transition:.3s ease}
-    .card img:hover{transform:scale(1.03)}
-    .caption{padding:12px 14px}
-    .caption h3{margin:0 0 6px;font-size:16px}
-    .caption p{margin:0;color:#666;font-size:14px}
-    .download{margin-top:8px;display:inline-block;padding:6px 12px;background:var(--accent);color:#fff;text-decoration:none;font-size:13px;border-radius:6px;transition:.3s}
-    .download:hover{background:#57309c}
-
-    footer{max-width:1100px;margin:28px auto;padding:18px;text-align:center;color:#666}
-
-    .whatsapp-link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top:12px;
-      text-decoration:none;
+    body {
+      margin:0;
+      background:#f6f6f8;
     }
-    .whatsapp-link img{
-      width:28px;
-      height:28px;
+    .gallery {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:10px;
+      padding:10px;
+      max-width:1200px;
+      margin:auto;
     }
-    .whatsapp-link span{
-      font-size:16px;
-      color:#25D366;
-      font-weight:bold;
+    .gallery img {
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      display:block;
+      border-radius:8px;
+      box-shadow:0 4px 10px rgba(0,0,0,.08);
+      cursor:pointer;
+      transition:.3s;
+    }
+    .gallery img:hover {
+      transform:scale(1.03);
     }
 
     /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:9999}
-    .lightbox img{max-width:90%;max-height:80%;border-radius:10px;box-shadow:0 0 20px rgba(0,0,0,.6)}
-    .lightbox:target{display:flex}
-    .close{position:absolute;top:20px;right:30px;color:#fff;font-size:28px;text-decoration:none;font-weight:bold}
-
-    @media (max-width:520px){ .card img{height:240px} }
+    .lightbox {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.9);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    }
+    .lightbox img {
+      max-width:90%;
+      max-height:85%;
+      border-radius:10px;
+    }
+    .lightbox:target {
+      display:flex;
+    }
+    .close {
+      position:absolute;
+      top:20px;
+      right:30px;
+      color:#fff;
+      font-size:32px;
+      text-decoration:none;
+      font-weight:bold;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Titto Ardika Akbar, S.Kom</h1>
-    <p>Universitas Nurdin Hamzah • Maju, Inovatif, dan Berkarakter</p>
-  </header>
-      </div>
-      <div style="flex:0 0 240px">
-        <div style="background:linear-gradient(180deg,#fff,#f7f7fb);padding:12px;border-radius:10px;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.04)">
-          <strong>Titto Ardika Akbar</strong>
-          <div style="font-size:13px;color:#666;margin-top:6px">Bachelor of Computer Science • 2025</div>
-        </div>
-      </div>
-    </section>
 
-    <section class="gallery">
-      <article class="card">
-        <a href="#img1"><img src="IMG-20250903-WA0067.jpg" alt="Foto  1"></a>
-        <div class="caption">
-          <h3>Kebahagiaan</h3>
-          <p>Moment lucu dan hangat bersama sahabat/keluarga pada hari istimewa.</p>
-          <a href="IMG-20250903-WA0067.jpg" download class="download">Unduh Foto</a>
-        </div>
-      </article>
+  <section class="gallery">
+    <a href="#img1"><img src="IMG-20250903-WA0067.jpg" alt="Foto 1"></a>
+    <a href="#img2"><img src="IMG-20250903-WA0154.jpg" alt="Foto 2"></a>
+    <a href="#img3"><img src="IMG-20250903-WA0156.jpg" alt="Foto 3"></a>
+    <a href="#img4"><img src="IMG-20250903-WA0100.jpg" alt="Foto 4"></a>
+    <a href="#img5"><img src="IMG-20250903-WA0101.jpg" alt="Foto 5"></a>
+  </section>
 
-      <article class="card">
-        <a href="#img2"><img src="IMG-20250903-WA0154.jpg" alt="Foto  2"></a>
-        <div class="caption">
-          <h3>Foto Formal</h3>
-          <p>Seragam rapi, setelan jas sebagai tanda kelulusan profesional.</p>
-          <a href="IMG-20250903-WA0154.jpg" download class="download">Unduh Foto</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <a href="#img3"><img src="IMG-20250903-WA0156.jpg" alt="Foto  3"></a>
-        <div class="caption">
-          <h3>Pelukan Bahagia</h3>
-          <p>Pelukan hangat sebagai ungkapan rasa syukur dan dukungan.</p>
-          <a href="IMG-20250903-WA0156.jpg" download class="download">Unduh Foto</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <a href="#img4"><img src="IMG-20250903-WA0100.jpg" alt="Foto  4"></a>
-        <div class="caption">
-          <h3>Poster Ucapan</h3>
-          <p>Foto bersama papan ucapan — kenangan yang mengharukan.</p>
-          <a href="IMG-20250903-WA0100.jpg" download class="download">Unduh Foto</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <a href="#img5"><img src="IMG-20250903-WA0101.jpg" alt="Foto  5"></a>
-        <div class="caption">
-          <h3>Senyum Bangga</h3>
-          <p>Ekspresi bangga.</p>
-          <a href="IMG-20250903-WA0101.jpg" download class="download">Unduh Foto</a>
-        </div>
-      </article>
-    </section>
-  </main>
-
-  <!-- Lightbox Section -->
+  <!-- Lightbox -->
   <div id="img1" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0067.jpg"></div>
   <div id="img2" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0154.jpg"></div>
   <div id="img3" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0156.jpg"></div>
   <div id="img4" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0100.jpg"></div>
   <div id="img5" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0101.jpg"></div>
 
-  <footer>
-    Dibuat dengan ❤️ untuk mengenang momen spesial kelulusan Titto Ardika Akbar. 
-    Semua foto bisa diperbesar (klik) atau diunduh.
-    <br><br>
-    <!-- Kontak WhatsApp -->
-    <a href="https://wa.me/6282244248271" target="_blank" class="whatsapp-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-      <span>082244248271</span>
-    </a>
-  </footer>
 </body>
 </html>
