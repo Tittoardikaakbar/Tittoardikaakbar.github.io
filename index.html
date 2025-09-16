@@ -115,12 +115,14 @@ $total_visitors = count($visitors);
   <!-- Visitors -->
   <section id="visitors" class="visitors">
     <h2>👀 Siapa saja yang melihat web ini</h2>
-    <p>Total pengunjung: <?php echo $total_visitors; ?></p>
-    <?php
-      foreach($visitors as $v) {
-          echo "<p>$v</p>";
-      }
-    ?>
+<p>Total pengunjung: <?php echo $total_visitors; ?></p>
+
+<?php
+foreach($visitors as $v) {
+    echo "<p>$v</p>";
+}
+?>
+
   </section>
 
   <footer>
