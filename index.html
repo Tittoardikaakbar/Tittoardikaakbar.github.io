@@ -8,6 +8,7 @@
     body {
       margin:0;
       background:#f6f6f8;
+      font-family:system-ui, Arial, sans-serif;
     }
     .gallery {
       display:grid;
@@ -27,41 +28,60 @@
       cursor:pointer;
       transition:.3s;
     }
-    .gallery img:hover {
-      transform:scale(1.03);
-    }
+    .gallery img:hover { transform:scale(1.03); }
 
     /* Lightbox */
     .lightbox {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.9);
-      display:none;
-      align-items:center;
-      justify-content:center;
+      position:fixed; inset:0; background:rgba(0,0,0,.9);
+      display:none; align-items:center; justify-content:center;
       z-index:9999;
     }
     .lightbox img {
-      max-width:90%;
-      max-height:85%;
-      border-radius:10px;
+      max-width:90%; max-height:85%; border-radius:10px;
     }
-    .lightbox:target {
-      display:flex;
-    }
+    .lightbox:target { display:flex; }
     .close {
-      position:absolute;
-      top:20px;
-      right:30px;
-      color:#fff;
-      font-size:32px;
-      text-decoration:none;
-      font-weight:bold;
+      position:absolute; top:20px; right:30px;
+      color:#fff; font-size:32px; text-decoration:none; font-weight:bold;
+    }
+
+    /* Biodata & Pengembang */
+    .biodata {
+      max-width:900px;
+      margin:40px auto;
+      padding:20px;
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+      align-items:center;
+    }
+    .biodata img {
+      width:180px;
+      height:180px;
+      object-fit:cover;
+      border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+    }
+    .biodata .info {
+      flex:1;
+    }
+    .biodata .info h2 {
+      margin:0 0 8px;
+      font-size:22px;
+      color:#333;
+    }
+    .biodata .info p {
+      margin:4px 0;
+      color:#555;
     }
   </style>
 </head>
 <body>
 
+  <!-- Gallery Foto -->
   <section class="gallery">
     <a href="#img1"><img src="IMG-20250903-WA0067.jpg" alt="Foto 1"></a>
     <a href="#img2"><img src="IMG-20250903-WA0154.jpg" alt="Foto 2"></a>
@@ -76,6 +96,18 @@
   <div id="img3" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0156.jpg"></div>
   <div id="img4" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0100.jpg"></div>
   <div id="img5" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0101.jpg"></div>
+
+  <!-- Biodata & Pengembang -->
+  <section class="biodata">
+    <img src="foto-biodata.jpg" alt="Foto Pengembang">
+    <div class="info">
+      <h2>Titto Ardika Akbar</h2>
+      <p><strong>Jurusan:</strong> S1 Ilmu Komputer</p>
+      <p><strong>Universitas:</strong> Universitas Nurdin Hamzah</p>
+      <p><strong>Tahun Lulus:</strong> 2025</p>
+      <p><strong>Pengembang:</strong> Website ini dibuat untuk dokumentasi wisuda dan pengembangan pribadi.</p>
+    </div>
+  </section>
 
 </body>
 </html>
