@@ -1,85 +1,174 @@
-<?php
-// File untuk menyimpan pengunjung
-$data_file = __DIR__ . '/data/visitors.txt';
-if (!file_exists(__DIR__ . '/data')) mkdir(__DIR__ . '/data', 0777, true);
-
-// Ambil info pengunjung
-$ip = $_SERVER['REMOTE_ADDR'];
-$agent = $_SERVER['HTTP_USER_AGENT'];
-$time = date('Y-m-d H:i:s');
-
-// Simpan pengunjung baru
-$line = "$time | $ip | $agent" . PHP_EOL;
-file_put_contents($data_file, $line, FILE_APPEND | LOCK_EX);
-
-// Ambil semua pengunjung
-$visitors = file_exists($data_file) ? file($data_file, FILE_IGNORE_NEW_LINES) : [];
-$total_visitors = count($visitors);
-?>
-
 <!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Suka Suka Saya</title>
+  <title>suka suka saya</title>
   <style>
-    body { margin:0; background:#f6f6f8; font-family:system-ui, Arial, sans-serif; }
+    body {
+      margin:0;
+      background:#f6f6f8;
+      font-family:system-ui, Arial, sans-serif;
+    }
 
     /* Navigasi */
-    nav { position:sticky; top:0; background:linear-gradient(90deg,#6b3fb5,#8a5fd6); padding:12px 20px; display:flex; justify-content:center; gap:20px; z-index:1000; }
-    nav a { color:#fff; text-decoration:none; font-weight:500; transition:.3s; }
+    nav {
+      position:sticky;
+      top:0;
+      background:linear-gradient(90deg,#6b3fb5,#8a5fd6);
+      padding:12px 20px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      z-index:1000;
+    }
+    nav a {
+      color:#fff;
+      text-decoration:none;
+      font-weight:500;
+      transition:.3s;
+    }
     nav a:hover { text-decoration:underline; }
 
     /* Catatan */
-    .note { background:#fff3cd; color:#856404; padding:12px 20px; text-align:center; font-size:15px; border-bottom:1px solid #ffeeba; }
+    .note {
+      background:#fff3cd;
+      color:#856404;
+      padding:12px 20px;
+      text-align:center;
+      font-size:15px;
+      border-bottom:1px solid #ffeeba;
+    }
 
     /* Gallery */
-    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; padding:20px; max-width:1200px; margin:auto; }
-    .gallery img { width:100%; height:320px; object-fit:cover; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.1); cursor:pointer; transition:.3s; }
+    .gallery {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:12px;
+      padding:20px;
+      max-width:1200px;
+      margin:auto;
+    }
+    .gallery img {
+      width:100%;
+      height:320px;
+      object-fit:cover;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      cursor:pointer;
+      transition:.3s;
+    }
     .gallery img:hover { transform:scale(1.04); }
 
     /* Lightbox */
-    .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; z-index:9999; }
-    .lightbox img { max-width:90%; max-height:85%; border-radius:10px; box-shadow:0 0 20px rgba(255,255,255,.2); }
+    .lightbox {
+      position:fixed; inset:0; background:rgba(0,0,0,.9);
+      display:none; align-items:center; justify-content:center;
+      z-index:9999;
+    }
+    .lightbox img {
+      max-width:90%; max-height:85%; border-radius:10px;
+      box-shadow:0 0 20px rgba(255,255,255,.2);
+    }
     .lightbox:target { display:flex; }
-    .close { position:absolute; top:20px; right:30px; color:#fff; font-size:32px; text-decoration:none; font-weight:bold; }
+    .close {
+      position:absolute; top:20px; right:30px;
+      color:#fff; font-size:32px; text-decoration:none; font-weight:bold;
+    }
 
     /* Developer Section */
-    .section-card { max-width:900px; margin:60px auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,.08); display:flex; flex-wrap:wrap; gap:24px; align-items:center; opacity:0; transform:translateY(40px); transition:all 0.8s ease; }
-    .section-card.show { opacity:1; transform:translateY(0); }
-    .section-card img { width:180px; height:180px; object-fit:cover; border-radius:50%; box-shadow:0 4px 12px rgba(0,0,0,.15); transition:.3s; }
+    .section-card {
+      max-width:900px;
+      margin:60px auto;
+      padding:30px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      display:flex;
+      flex-wrap:wrap;
+      gap:24px;
+      align-items:center;
+      opacity:0;
+      transform:translateY(40px);
+      transition:all 0.8s ease;
+    }
+    .section-card.show {
+      opacity:1;
+      transform:translateY(0);
+    }
+    .section-card img {
+      width:180px;
+      height:180px;
+      object-fit:cover;
+      border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+      transition:.3s;
+    }
     .section-card img:hover { transform:scale(1.05); }
-    .info { flex:1; }
-    .info h2 { margin:0 0 10px; font-size:24px; color:#333; }
-    .info p { margin:6px 0; color:#555; font-size:15px; }
-    .sosial { margin-top:12px; display:flex; gap:16px; flex-wrap:wrap; }
-    .sosial a { display:inline-flex; align-items:center; text-decoration:none; font-size:15px; font-weight:500; padding:6px; border-radius:6px; background:#f6f6f8; box-shadow:0 2px 6px rgba(0,0,0,.05); transition:.3s; }
-    .sosial a:hover { background:#eee; transform:translateY(-2px); }
-    .sosial a img { width:24px; height:24px; }
-    .ig { color:#E4405F; }
+    .info {
+      flex:1;
+    }
+    .info h2 {
+      margin:0 0 10px;
+      font-size:24px;
+      color:#333;
+    }
+    .info p {
+      margin:6px 0;
+      color:#555;
+      font-size:15px;
+    }
 
-    /* Visitors */
-    .visitors { max-width:900px; margin:40px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.08); }
-    .visitors h2 { margin:0 0 12px; }
-    .visitors p { margin:2px 0; font-size:14px; color:#333; word-break:break-word; }
+    /* Sosial */
+    .sosial {
+      margin-top:12px;
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .sosial a {
+      display:inline-flex;
+      align-items:center;
+      text-decoration:none;
+      font-size:15px;
+      font-weight:500;
+      padding:6px;
+      border-radius:6px;
+      background:#f6f6f8;
+      box-shadow:0 2px 6px rgba(0,0,0,.05);
+      transition:.3s;
+    }
+    .sosial a:hover {
+      background:#eee;
+      transform:translateY(-2px);
+    }
+    .sosial a img {
+      width:24px; height:24px;
+    }
 
-    footer { text-align:center; padding:20px; color:#666; font-size:14px; }
+    /* Footer */
+    footer {
+      text-align:center;
+      padding:20px;
+      color:#666;
+      font-size:14px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Navigasi -->
   <nav>
     <a href="#gallery">Gallery</a>
     <a href="#developer">Developer</a>
-    <a href="#visitors">Pengunjung</a>
   </nav>
 
+  <!-- Catatan -->
   <div class="note">
     📌 Catatan: Website ini hanya untuk bersenang-senang, karena saya gabut.
   </div>
 
-  <!-- Gallery -->
+  <!-- Gallery Foto -->
   <section id="gallery" class="gallery">
     <a href="#img1"><img src="IMG-20250903-WA0067.jpg" alt="Foto 1"></a>
     <a href="#img2"><img src="IMG-20250903-WA0154.jpg" alt="Foto 2"></a>
@@ -91,12 +180,13 @@ $total_visitors = count($visitors);
   </section>
 
   <!-- Lightbox -->
-  <?php for($i=1;$i<=7;$i++): ?>
-    <div id="img<?php echo $i ?>" class="lightbox">
-      <a href="#" class="close">&times;</a>
-      <img src="IMG-20250903-WA00<?php echo ($i==6?41:($i==7?32:$i*67)) ?>.jpg">
-    </div>
-  <?php endfor; ?>
+  <div id="img1" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0067.jpg"></div>
+  <div id="img2" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0154.jpg"></div>
+  <div id="img3" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0156.jpg"></div>
+  <div id="img4" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0100.jpg"></div>
+  <div id="img5" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0101.jpg"></div>
+  <div id="img6" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0032.jpg"></div>
+  <div id="img7" class="lightbox"><a href="#" class="close">&times;</a><img src="IMG-20250903-WA0041.jpg"></div>
 
   <!-- Developer -->
   <section id="developer" class="section-card">
@@ -105,37 +195,29 @@ $total_visitors = count($visitors);
       <h2>Developer</h2>
       <p>Website ini dibuat karena saya gabut saja.</p>
       <div class="sosial">
-        <a href="https://www.instagram.com/titto_aakbar?igsh=azZidGw3Y3g3Mjc3" target="_blank" class="ig">
+        <!-- Instagram logo -->
+        <a href="https://www.instagram.com/titto_aakbar?igsh=azZidGw3Y3g3Mjc3" target="_blank">
           <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Visitors -->
-  <section id="visitors" class="visitors">
-    <h2>👀 Siapa saja yang melihat web ini</h2>
-<p>Total pengunjung: <?php echo $total_visitors; ?></p>
-
-<?php
-foreach($visitors as $v) {
-    echo "<p>$v</p>";
-}
-?>
-
-  </section>
-
+  <!-- Footer -->
   <footer>
     © 2025
   </footer>
 
+  <!-- Script Animasi Scroll -->
   <script>
     const sections = document.querySelectorAll('.section-card');
     function checkScroll() {
       const triggerBottom = window.innerHeight * 0.85;
       sections.forEach(sec => {
         const boxTop = sec.getBoundingClientRect().top;
-        if(boxTop < triggerBottom) sec.classList.add('show');
+        if (boxTop < triggerBottom) {
+          sec.classList.add('show');
+        }
       });
     }
     window.addEventListener('scroll', checkScroll);
